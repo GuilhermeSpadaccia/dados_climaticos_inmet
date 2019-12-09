@@ -66,7 +66,11 @@ for (dirpath, dirnames, filenames) in os.walk('Dados Climaticos'):
         
 for file in files_list:
     
-    estado, codigo, cidade = getInfosFromName(file.split('/')[-1])
+    file_name = file.split('/')[-1]
+    if file_name[-4:] == ".xls":
+        estado, codigo, cidade = getInfosFromName(file.split('/')[-1])
+    else:
+        continue
 
     df = pd.read_excel(file, nrows=9, usecols='A:B')
     lat, lon = getCoordinates(df)
